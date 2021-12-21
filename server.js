@@ -1,4 +1,6 @@
 const express = require('express');
+const cron = require('node-cron');
+
 const app = express();
 
 app.set('port', process.env.PORT || 3001);
@@ -9,7 +11,9 @@ const notifications = [{
   sendDate: Date.now()
 }];
 
-
+cron.schedule('1-59/2 * * * * *', () => {
+  console.log('Cron: Running a task every 2 seconds');
+});
 
 app.listen(app.get('port'), () => {
   console.log(`Scheduler test running on http://localhost:${app.get('port')}`);
